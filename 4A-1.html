@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4A Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/sky.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: ease 2s;
+        }
+
+        .boxremove {
+            display: none;
+        }
+
+        .box2 {
+            width: 100%;
+            height: 100vh;
+            background-image: url(./images/night.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: ease 2s;
+            display: none;
+        }
+
+        .night {
+            display: block;
+        }
+
+        #sun {
+            width: 200px;
+        }
+
+        .star0 {
+            height: 1px;
+            width: 1px;
+            opacity: 1;
+            position: absolute;
+        }
+
+        .star1 {
+            height: 2px;
+            width: 2px;
+            border-radius: 50%;
+            opacity: 1;
+            position: absolute;
+        }
+
+        .star2 {
+            height: 3px;
+            width: 3px;
+            border-radius: 50%;
+            opacity: 1;
+            position: absolute;
+        }
+
+        .star3 {
+            height: 4px;
+            width: 4px;
+            border-radius: 50%;
+            opacity: 1;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img id="sun" src="https://www.animatedimages.org/data/media/278/animated-sun-image-0268.gif">
+    </div>
+    <div class="box2">
+        <div id="universe"></div>
+    </div>
+
+    <script type="text/javascript">
+        var sun = document.querySelector("#sun")
+        var animation = sun.animate([
+            { transform: "translateX(0vw)", },
+            { transform: "translateX(90vw)" },
+        ], {
+            direction: 'alternate',
+            duration: 5000,
+            iterations: Infinity
+        })
+        // document.addEventListener("mousedown", () => {animation.pause()})
+        // document.addEventListener("mouseup", () => {animation.play()})
+        document.addEventListener("dblclick", () => {
+            var box2 = document.querySelector(".box").classList.add("boxremove")
+            var box2 = document.querySelector(".box2").classList.add("night")
+        })
+
+
+        var layerCount = 4;
+        var starCount = 500;
+        var maxTime = 31;
+        var universe = document.getElementById('universe');
+        var w = window;
+        var d = document;
+        var e = d.documentElement;
+        var g = d.getElementsByTagName('body')[0];
+        var width = w.innerWidth || e.clientWidth || g.clientWidth;
+        var height = w.innerHeight || e.clientHeight || g.clientHeight;
+        for (var i = 0; i < starCount; ++i) {
+            var ypos = Math.round(Math.random() * height);
+            var star = document.createElement('div');
+            var speed = 1000 * (Math.random() * maxTime + 1);
+            star.setAttribute('class', 'star' + (3 - Math.floor((speed / 1000) / 8)));
+            star.style.backgroundColor = 'white';
+            universe.appendChild(star);
+            star.animate([{ transform: 'translate3d(' + width + 'px, ' + ypos + 'px, 0)' },
+            { transform: 'translate3d(-' + Math.random() * 256 + 'px, ' + ypos + 'px, 0)' }],
+                { delay: Math.random() * -speed, duration: speed, iterations: 1000 });
+        }
+    </script>
+</body>
+
+</html>

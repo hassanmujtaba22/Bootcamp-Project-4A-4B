@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4A Web Animation API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            justify-content: center;
+            align-items: center;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: darkcyan;
+        }
+
+        #perspective {
+            margin-left: 100px;
+            width: 300px;
+            height: 300px;
+            perspective: 600px;
+        }
+
+        #container {
+            width: 300px;
+            height: 300px;
+            line-height: 0;
+            transform-style: preserve-3d;
+        }
+
+        .box2 {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="heart" src="./images/1447868.gif">
+    <hr>
+    <div id="box"></div>
+    <div id="boxbutton">
+        <button id="pause">Pause</button>
+        <button id="play">Play</button>
+        <button id="reverse">Reverse</button>
+        <button id="currentTime">CurrentTime</button>
+        <button id="playbackRateINC">PlaybackRate +</button>
+        <button id="playbackRateDEC">PlaybackRate -</button>
+        <button id="finish">Finish</button>
+        <button id="cancel">Cancel</button>
+    </div>
+    <hr>
+    <div id="perspective">
+        <div id="container"></div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        var heart = document.querySelector("#heart")
+        var heartanimation = heart.animate([
+            { transform: "scale(0.5)" },
+            { transform: "scale(1)" },
+            { transform: "scale(0.5)" },
+        ], {
+            duration: 1500,
+            iterations: Infinity
+        })
+
+        var box = document.querySelector("#box")
+        var boxanimation = box.animate([
+            { transform: "translateX(0vw)", background: "darkcyan" },
+            { transform: "translateX(20vw)", background: "blue" },
+            { transform: "translateX(40vw)", background: "purple" },
+            { transform: "translateX(60vw)", background: "yellow" },
+            { transform: "translateX(80vw)", background: "red" },
+            { transform: "translateX(100vw)", background: "pink" },
+        ], {
+            direction: 'alternate',
+            duration: 5000,
+            iterations: Infinity
+        })
+        var pause = document.querySelector("#pause").addEventListener("click", () => { boxanimation.pause() })
+        var play = document.querySelector("#play").addEventListener("click", () => { boxanimation.play() })
+        var reverse = document.querySelector("#reverse").addEventListener("click", () => { boxanimation.reverse() })
+        var currentTime = document.querySelector("#currentTime").addEventListener("click", () => { boxanimation.currentTime = 5000 })
+        var playbackRateINC = document.querySelector("#playbackRateINC").addEventListener("click", () => { boxanimation.playbackRate += 0.25 })
+        var playbackRateDEC = document.querySelector("#playbackRateDEC").addEventListener("click", () => { boxanimation.playbackRate -= 0.25 })
+        var finish = document.querySelector("#finish").addEventListener("click", () => { boxanimation.finish() })
+        var cancel = document.querySelector("#cancel").addEventListener("click", () => { boxanimation.cancel() })
+
+
+        // Generating animations
+        // ---------------------
+        container.animate({
+            transform: [
+                'rotateX(60deg) rotateZ(0deg)',
+                'rotateX(60deg) rotateZ(360deg)',
+            ],
+        }, {
+            duration: 20000,
+            iterations: Infinity,
+        });
+
+        for (var y = -7; y <= 7; y++) {
+            for (var x = -7; x <= 7; x++) {
+                var box = createBox();
+                box.animate({
+                    transform: [
+                        'translateZ(0px)',
+                        'translateZ(20px)',
+                    ],
+                    opacity: [1, 0],
+                }, {
+                    delay: (x * x + y * y) * 20,
+                    duration: 2000,
+                    iterations: Infinity,
+                    direction: 'alternate',
+                    easing: 'ease-in',
+                });
+            }
+        }
+
+        function createBox() {
+            var box = document.createElement('div');
+            box.className = 'box2';
+            container.appendChild(box);
+            return box;
+        }
+
+    </script>
+</body>
+
+</html>
